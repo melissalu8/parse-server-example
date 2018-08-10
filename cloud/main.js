@@ -48,14 +48,14 @@ Parse.Cloud.define('like', function(request, response) {
 
   var sender = JSON.parse(likeData).sender;
   var toToken = JSON.parse(likeData).toToken;
-  var  message = JSON.parse(likeData).message;
+  var likeMessage = JSON.parse(likeData).message;
   var likeQuery = new Parse.Query(Parse.Installation);
   likeQuery.equalTo("deviceToken", toToken);
 
   Parse.Push.send({
   where: likeQuery,
   // Parse.Push requires a dictionary, not a string.
-  data: {"alert": message},
+  data: {"alert": likeMessage},
   }, { success: function() {
      console.log("#### PUSH OK");
   }, error: function(error) {
