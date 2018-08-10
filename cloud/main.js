@@ -39,18 +39,18 @@ Parse.Cloud.define('nearby', function(request, response) {
 
 Parse.Cloud.define('like', function(request, response) {
 
-  var params = request.params;
-  var likeData = params.likeData;
+  var likeParams = request.params;
+  var likeData = likeParams.likeData;
 
   if (!likeData) {
     response.error("Missing customData!")
   }
 
-  var sender = JSON.parse(likeData).sender;
-  var toToken = JSON.parse(likeData).toToken;
+  var likeSender = JSON.parse(likeData).sender;
+  var likeToToken = JSON.parse(likeData).toToken;
   var likeMessage = JSON.parse(likeData).message;
   var likeQuery = new Parse.Query(Parse.Installation);
-  likeQuery.equalTo("deviceToken", toToken);
+  likeQuery.equalTo("deviceToken", likeToToken);
 
   Parse.Push.send({
   where: likeQuery,
