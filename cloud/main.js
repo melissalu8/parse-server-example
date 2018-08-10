@@ -1,5 +1,5 @@
 
-Parse.Cloud.define('pingReply', function(request, response) {
+Parse.Cloud.define('nearby', function(request, response) {
 
   var params = request.params;
   var customData = params.customData;
@@ -10,13 +10,14 @@ Parse.Cloud.define('pingReply', function(request, response) {
 
   var sender = JSON.parse(customData).sender;
   var toToken = JSON.parse(customData).toToken;
+  var  message = JSON.parse(customData).message;
   var query = new Parse.Query(Parse.Installation);
   query.equalTo("deviceToken", toToken);
 
   Parse.Push.send({
   where: query,
   // Parse.Push requires a dictionary, not a string.
-  data: {"alert": "The Giants scored!"},
+  data: {"alert": message},
   }, { success: function() {
      console.log("#### PUSH OK");
   }, error: function(error) {
