@@ -9,9 +9,9 @@ Parse.Cloud.define('pingReply', function(request, response) {
   }
 
   var sender = JSON.parse(customData).sender;
-  var to = JSON.parse(customData).to;
+  var toToken = JSON.parse(customData).toToken;
   var query = new Parse.Query(Parse.Installation);
-  query.equalTo("deviceToken", to);
+  query.equalTo("deviceToken", toToken);
 
   Parse.Push.send({
   where: query,
